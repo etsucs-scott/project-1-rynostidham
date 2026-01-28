@@ -6,6 +6,7 @@ namespace AdventureGame.Cli
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+            Console.WriteLine("Welcome to the Adventure Game CLI!");
         }
     }
 }
