@@ -8,7 +8,7 @@ namespace AdventureGame.Core
         public int MaxHealth { get; } = 150;
 
         public List<Item> Inventory { get; } new List<Item>();
-
+        //Allows the best or highest damage weapon to be used 
         public Weapon BestWeapon =>
             Inventory.OfType < BestWeapon()
                 .OrderByDescending(w => w.Modifier)
