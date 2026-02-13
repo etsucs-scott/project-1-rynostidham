@@ -7,6 +7,9 @@ namespace AdventureGame.Core
         public int Health { get; private set; } = 100;
         public int MaxHealth { get; } = 150;
 
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public List<Item> Inventory { get; } new List<Item>();
         //Allows the best or highest damage weapon to be used 
         public Weapon BestWeapon =>
