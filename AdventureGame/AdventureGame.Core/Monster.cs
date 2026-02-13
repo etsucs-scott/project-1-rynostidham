@@ -5,7 +5,7 @@ public class Monster : ICharacter
 	private static readonly Random rng = new Random();
 
 	public int Health { get; private set; }
-
+	
 	public int AttackPower { get; }
 	//Monster does random damage from 30-50
 	public Monster()
