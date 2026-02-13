@@ -1,18 +1,18 @@
-﻿using System;
-using AdventureGame.Core;
-
-public class Weapon : Item
+﻿namespace AdventureGame.Core
 {
-	public int Modifier { get; }
-	
-	public Weapon(string name, int modifier)
-		: base(name, $"You picked up {name}!")
-	{
-		Modifier = modifier;
-	}
+    public class Weapon : Item
+    {
+        public int Modifier { get; }
 
-	public overrride void OnPickup(Player player)
-	{
-		//Weapons stay in inventory 
-	}
+        public Weapon(string name, int modifier)
+            : base(name, $"You picked up {name}!")
+        {
+            Modifier = modifier;
+        }
+
+        public override void OnPickup(Player player)
+        {
+            // Weapons stay in inventory
+        }
+    }
 }

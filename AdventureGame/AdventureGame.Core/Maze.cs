@@ -1,5 +1,6 @@
 ﻿using System;
 
+namespace AdventureGame.Core
 {
     public class Maze
     {
@@ -38,10 +39,11 @@
 
         public Tile GetTile(int x, int y) => Tiles[x, y];
 
+        //Ensures player starts a grid 1,1 previous error spawned player in wall
         public void PlacePlayer(Player player)
         {
-            PlayerX = 0;
-            PlayerY = 0;
+            PlayerX = 1;
+            PlayerY = 1;
             player.X = PlayerX;
             player.Y = PlayerY;
         }
@@ -56,7 +58,6 @@
 
         private void GenerateMaze()
         {
-            // Simple random walls, items, monsters, and one exit.
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
@@ -87,9 +88,10 @@
                 }
             }
 
-            // Place exit somewhere near bottom-right, not on a wall
+            // Place exit near bottom-right
             int exitX = Width - 2;
             int exitY = Height - 2;
+
             Tiles[exitX, exitY].IsWall = false;
             Tiles[exitX, exitY].Monster = null;
             Tiles[exitX, exitY].Item = null;

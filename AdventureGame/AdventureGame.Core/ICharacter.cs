@@ -1,8 +1,9 @@
-﻿using System;
-
-public interface ICharacter
+﻿namespace AdventureGame.Core
 {
-    int Health { get; }
-    void Attack(ICharacter target);
-    void TakeDamage(int amount);
+    public interface ICharacter
+    {
+        int Health { get; }
+        void Attack(ICharacter target);
+        void TakeDamage(int amount);
+    }
 }

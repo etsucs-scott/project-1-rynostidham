@@ -1,66 +1,68 @@
-﻿using System;
+﻿using System.Text;
 
-public class GameEngine 
+namespace AdventureGame.Core
 {
-    public Maze Maze { get; }
-    public Player Player { get; }
-
-    public bool IsGameOver { get; private set; }
-    public bool PlayerWon { get; private set; }
-
-    public GameEngine(int widht, int height)
+    public class GameEngine
     {
-        Maze = new Maze(width, height);
-        Player = new Player();
-        Maze.PlacePlayer(Player);
-    }
-    //Checks walls, handles items, exits, monsters, etc
-    public string MovePlayer(Direction direction)
-    {
-        if (IsGameOver)
-            return "Game is over!";
+        public Maze Maze { get; }
+        public Player Player { get; }
 
-        int newX = Player.X;
-        int newY = Player.Y;
+        public bool IsGameOver { get; private set; }
+        public bool PlayerWon { get; private set; }
 
-        switch (direction)
+        public GameEngine(int width, int height)
         {
-            case Directionn.Up: newY--; break;
-            case Direction.Down: newY--; break;
-            case Direction.Left: newX--; break;
-            case Direction.Right: newX++; break;
+            Maze = new Maze(width, height);
+            Player = new Player();
+            Maze.PlacePlayer(Player);
         }
-
-        if (!Maze.IsInside(newX, newY))
-            return "Can't move off grid!";
-
-        var tile = Maze.GetTile (newX, newY);
-
-        if (tile.IsWall)
-            return "A wall is in the way";
-
-        if (tile.Monster != null)
+        //Game rules that allow player movement and for engine to know what is on the current tile 
+        public string MovePlayer(Direction direction)
         {
-            string battleResult = battleResult(tile.Monster);
+            if (IsGameOver)
+                return "Game is over!";
 
-            if (Player.Health <= 0)
+            int newX = Player.X;
+            int newY = Player.Y;
+
+            switch (direction)
             {
-                IsGameOver = true;
-                PlayerWon = false;
-                return battleResult + "You were killed. Game over!";
+                case Direction.Up: newY--; break;
+                case Direction.Down: newY++; break;
+                case Direction.Left: newX--; break;
+                case Direction.Right: newX++; break;
             }
 
-            tile.Monster = null;
-            Maze.MovePlayerTo(Player, newX, newY);
-            return battleResult + "Monster defeated";
+            if (!Maze.IsInside(newX, newY))
+                return "Can't move off grid!";
+
+            var tile = Maze.GetTile(newX, newY);
+
+            if (tile.IsWall)
+                return "A wall is in the way";
+
+            if (tile.Monster != null)
+            {
+                string battleResult = Battle(tile.Monster);
+
+                if (Player.Health <= 0)
+                {
+                    IsGameOver = true;
+                    PlayerWon = false;
+                    return battleResult + " You were killed. Game over!";
+                }
+
+                tile.Monster = null;
+                Maze.MovePlayerTo(Player, newX, newY);
+                return battleResult + " Monster defeated!";
+            }
 
             if (tile.Item != null)
             {
                 Item item = tile.Item;
                 tile.Item = null;
 
-                Player.Pickup(item);
-
+                Player.PickUp(item);
                 Maze.MovePlayerTo(Player, newX, newY);
                 return item.PickupMessage;
             }
@@ -70,40 +72,36 @@ public class GameEngine
                 Maze.MovePlayerTo(Player, newX, newY);
                 IsGameOver = true;
                 PlayerWon = true;
-                return "Exit found you win!";
+                return "Exit found, you win!";
             }
 
             Maze.MovePlayerTo(Player, newX, newY);
-            return "You've moved to a new tile";
+            return "You've moved to a new tile.";
         }
-        //Retrives all damage done to player and monster and returns 
+        //Contains all battle logic showing health of player and monster after attack
         private string Battle(Monster monster)
-    {
-        var log = new System.Text.StringBuilder();
-
-        while (Player.Health > 0 && monster.Health > 0)
         {
-            Player.Attack(monster);
-            log.AppendLine($"Monster HP: {monster.Health}");
+            var log = new StringBuilder();
 
-            if (monster.Health <= 0)
+            while (Player.Health > 0 && monster.Health > 0)
             {
+                Player.Attack(monster);
                 log.AppendLine($"You hit the monster. Monster HP: {monster.Health}");
-                break;
+
+                if (monster.Health <= 0)
+                    break;
+
+                monster.Attack(Player);
+                log.AppendLine($"The monster hit you. Your HP: {Player.Health}");
+
+                if (Player.Health <= 0)
+                {
+                    log.AppendLine("You were killed by a monster.");
+                    break;
+                }
             }
 
-            monster.Attack(Player);
-            log.AppendLine($"The monster hit you. Your HP: {Player.Health}");
-
-            if Player.Health <= 0)
-            {
-                log.AppendLine("You were killed by a monster.");
-                break;
-            }
-        }
-
-        return log.ToString().TrimEnd();
-
+            return log.ToString().TrimEnd();
         }
     }
 }

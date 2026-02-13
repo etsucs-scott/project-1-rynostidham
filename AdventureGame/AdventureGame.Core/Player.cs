@@ -1,5 +1,6 @@
-﻿using System.collection.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+
 namespace AdventureGame.Core
 {
     public class Player : ICharacter
@@ -10,10 +11,11 @@ namespace AdventureGame.Core
         public int X { get; set; }
         public int Y { get; set; }
 
-        public List<Item> Inventory { get; } new List<Item>();
-        //Allows the best or highest damage weapon to be used 
+        public List<Item> Inventory { get; } = new List<Item>();
+        //Inventory sort system that insures the best weapon is being used 
         public Weapon BestWeapon =>
-            Inventory.OfType < BestWeapon()
+            Inventory
+                .OfType<Weapon>()
                 .OrderByDescending(w => w.Modifier)
                 .FirstOrDefault();
 
@@ -24,7 +26,7 @@ namespace AdventureGame.Core
             int damage = BaseDamage;
 
             if (BestWeapon != null)
-                damage += BestWeapon.Modifer;
+                damage += BestWeapon.Modifier;
 
             target.TakeDamage(damage);
         }
@@ -48,6 +50,5 @@ namespace AdventureGame.Core
             Inventory.Add(item);
             item.OnPickup(this);
         }
-        
     }
 }

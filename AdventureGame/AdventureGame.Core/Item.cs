@@ -1,16 +1,16 @@
-﻿using System;
-using AdventureGame.Core;
-
-public abstract class Item
+﻿namespace AdventureGame.Core
 {
-	public string Name { get; }
-	public string PickupMessage {  get; }
+    public abstract class Item
+    {
+        public string Name { get; }
+        public string PickupMessage { get; }
 
-	protected Item(string name, string pickupMessage)
-	{
-		Name = name;
-		PickupMessage = pickupMessage;
-	}
+        protected Item(string name, string pickupMessage)
+        {
+            Name = name;
+            PickupMessage = pickupMessage;
+        }
 
-	public abstract void OnPickup(Player player);
+        public abstract void OnPickup(Player player);
+    }
 }

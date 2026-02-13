@@ -1,9 +1,10 @@
-﻿using System;
-//All possible movment in the maze 
-public enum Direction
+﻿namespace AdventureGame.Core
 {
-	Up,
-	Down,
-	Left,
-	Right
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 }
