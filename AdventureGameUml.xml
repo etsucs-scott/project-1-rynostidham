@@ -1,0 +1,93 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="uml" name="UML">
+    <mxGraphModel dx="1420" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ICharacter -->
+        <mxCell id="ICharacter" value="&lt;&lt;interface&gt;&gt;&#xa;&lt;b&gt;ICharacter&lt;/b&gt;&#xa;---------------------&#xa;+ Health : int&#xa;---------------------&#xa;+ Attack(target : ICharacter)&#xa;+ TakeDamage(amount : int)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="40" y="40" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Player -->
+        <mxCell id="Player" value="&lt;b&gt;Player&lt;/b&gt;&#xa;---------------------&#xa;+ Health : int&#xa;+ MaxHealth : int&#xa;+ X : int&#xa;+ Y : int&#xa;+ Inventory : List&lt;Item&gt;&#xa;---------------------&#xa;+ BestWeapon : Weapon&#xa;+ Attack(target)&#xa;+ TakeDamage(amount)&#xa;+ Heal(amount)&#xa;+ PickUp(item)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="300" y="40" width="240" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- Monster -->
+        <mxCell id="Monster" value="&lt;b&gt;Monster&lt;/b&gt;&#xa;---------------------&#xa;+ Health : int&#xa;+ AttackPower : int&#xa;---------------------&#xa;+ Attack(target)&#xa;+ TakeDamage(amount)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="300" y="360" width="220" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Item -->
+        <mxCell id="Item" value="&lt;&lt;abstract&gt;&gt;&#xa;&lt;b&gt;Item&lt;/b&gt;&#xa;---------------------&#xa;+ Name : string&#xa;+ PickupMessage : string&#xa;---------------------&#xa;+ OnPickup(player : Player)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="600" y="40" width="220" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Potion -->
+        <mxCell id="Potion" value="&lt;b&gt;Potion&lt;/b&gt;&#xa;---------------------&#xa;+ HealAmount : int&#xa;---------------------&#xa;+ OnPickup(player)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="600" y="280" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Weapon -->
+        <mxCell id="Weapon" value="&lt;b&gt;Weapon&lt;/b&gt;&#xa;---------------------&#xa;+ Modifier : int&#xa;---------------------&#xa;+ OnPickup(player)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="600" y="480" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Maze -->
+        <mxCell id="Maze" value="&lt;b&gt;Maze&lt;/b&gt;&#xa;---------------------&#xa;+ Tiles : Tile[,]&#xa;+ Width : int&#xa;+ Height : int&#xa;+ PlayerX : int&#xa;+ PlayerY : int&#xa;---------------------&#xa;+ IsInside(x,y) : bool&#xa;+ GetTile(x,y) : Tile&#xa;+ PlacePlayer(player)&#xa;+ MovePlayerTo(player,x,y)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="900" y="40" width="260" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- Tile -->
+        <mxCell id="Tile" value="&lt;b&gt;Tile&lt;/b&gt;&#xa;---------------------&#xa;+ IsWall : bool&#xa;+ Item : Item&#xa;+ Monster : Monster&#xa;+ IsExit : bool" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="900" y="360" width="220" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- GameEngine -->
+        <mxCell id="GameEngine" value="&lt;b&gt;GameEngine&lt;/b&gt;&#xa;---------------------&#xa;+ Maze : Maze&#xa;+ Player : Player&#xa;+ IsGameOver : bool&#xa;+ PlayerWon : bool&#xa;---------------------&#xa;+ MovePlayer(direction) : string&#xa;- Battle(monster) : string" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="40" y="360" width="240" height="240" as="geometry"/>
+        </mxCell>
+
+        <!-- Direction Enum -->
+        <mxCell id="Direction" value="&lt;&lt;enum&gt;&gt;&#xa;&lt;b&gt;Direction&lt;/b&gt;&#xa;---------------------&#xa;Up&#xa;Down&#xa;Left&#xa;Right" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1">
+          <mxGeometry x="40" y="640" width="160" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationships with Cardinality -->
+
+        <!-- Player implements ICharacter -->
+        <mxCell id="edge1" edge="1" parent="1" source="Player" target="ICharacter" style="endArrow=block;endFill=0;dashed=1;"/>
+
+        <!-- Monster implements ICharacter -->
+        <mxCell id="edge2" edge="1" parent="1" source="Monster" target="ICharacter" style="endArrow=block;endFill=0;dashed=1;"/>
+
+        <!-- Potion inherits Item -->
+        <mxCell id="edge3" edge="1" parent="1" source="Potion" target="Item" style="endArrow=block;endFill=1;"/>
+
+        <!-- Weapon inherits Item -->
+        <mxCell id="edge4" edge="1" parent="1" source="Weapon" target="Item" style="endArrow=block;endFill=1;"/>
+
+        <!-- Maze composes Tile -->
+        <mxCell id="edge5" value="1      0..*" edge="1" parent="1" source="Maze" target="Tile" style="endArrow=diamond;endFill=1;labelBackgroundColor=none;"/>
+
+        <!-- GameEngine uses Maze -->
+        <mxCell id="edge6" value="1      1" edge="1" parent="1" source="GameEngine" target="Maze" style="endArrow=open;"/>
+
+        <!-- GameEngine uses Player -->
+        <mxCell id="edge7" value="1      1" edge="1" parent="1" source="GameEngine" target="Player" style="endArrow=open;"/>
+
+        <!-- Player has many Items -->
+        <mxCell id="edge8" value="1      0..*" edge="1" parent="1" source="Player" target="Item" style="endArrow=open;"/>
+
+        <!-- Tile has optional Item -->
+        <mxCell id="edge9" value="1      0..1" edge="1" parent="1" source="Tile" target="Item" style="endArrow=open;"/>
+
+        <!-- Tile has optional Monster -->
+        <mxCell id="edge10" value="1      0..1" edge="1" parent="1" source="Tile" target="Monster" style="endArrow=open;"/>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
