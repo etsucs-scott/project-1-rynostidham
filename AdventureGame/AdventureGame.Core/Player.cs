@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace AdventureGame.Core
-{
+{//Class for characters health, current inventory, and damage 
     public class Player : ICharacter
     {
         public int Health { get; private set; } = 100;

@@ -1,6 +1,6 @@
 ﻿using System;
 using AdventureGame.Core;
-
+//Main program runs game and implements all classes / interfaces 
 namespace AdventureGame.Cli
 {
     class Program
@@ -37,7 +37,7 @@ namespace AdventureGame.Cli
                     lastMessage = "Use W A S D to move.";
                     continue;
                 }
-
+                
                 lastMessage = engine.MovePlayer(direction.Value);
             }
 
@@ -49,7 +49,7 @@ namespace AdventureGame.Cli
             Console.WriteLine("Press any key to exit the maze");
             Console.ReadKey(true);
         }
-
+        //logic for maze creation allowing rng and to ensure no tile contains the same thing
         static void DrawMaze(GameEngine engine)
         {
             Maze maze = engine.Maze;
@@ -63,7 +63,7 @@ namespace AdventureGame.Cli
                         Console.Write("@ ");
                         continue;
                     }
-
+                    
                     var tile = maze.Tiles[x, y];
 
                     if (tile.IsWall)

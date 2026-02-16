@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace AdventureGame.Core
-{
+{//Class used for creating monsters assigning health and setting attack power. 
     public class Monster : ICharacter
     {
         private static readonly Random rng = new Random();

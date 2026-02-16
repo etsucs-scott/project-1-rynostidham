@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace AdventureGame.Core
-{
+{//Class for creating the maze and getting our width and heighth of maze as well as player location
     public class Maze
     {
         public Tile[,] Tiles { get; }
@@ -10,7 +10,7 @@ namespace AdventureGame.Core
 
         public int PlayerX { get; private set; }
         public int PlayerY { get; private set; }
-
+        
         private readonly Random rng = new Random();
 
         public Maze(int width, int height)
@@ -55,7 +55,7 @@ namespace AdventureGame.Core
             player.X = x;
             player.Y = y;
         }
-
+        //Implements the rng effect into game and allows for a new maze every generation 
         private void GenerateMaze()
         {
             for (int x = 0; x < Width; x++)

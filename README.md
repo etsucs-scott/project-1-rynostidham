@@ -12,32 +12,39 @@ This repository is intentionally minimal. You are responsible for:
 
 ---
 
-## Getting Started (CLI)
+This project implements a text‑based Adventure Game written in C#. The player navigates a maze, collects items, encounters monsters, and attempts to reach the exit.
 
-You may use **Visual Studio**, **VS Code**, or the **terminal**.
+--## To run game ##--
+Open visual studios and run the Program.cs
 
-### Create a solution
-```bash
-dotnet new sln -n ProjectName
-```
+--## Controls and Gameplay ##--
+The player moves using W A S D 
+W - Up
+A - Left
+S - Down 
+D - Right 
 
-### Create a project (example: console app)
-```bash
-dotnet new console -n ProjectName.App
-```
+Each turn shows 
+- Player health
+- Tile description 
+- Items in inventory 
+- Monsters on tile 
+- Movement prompt 
+- Battle results if applicable 
 
-### Add the project to the solution
-```bash
-dotnet sln add ProjectName.App
-```
+--## Battle System ##--
+A battle begins when a player enters a tile with a monster. The player attacks first and then the monster attacks after if still alive. Combat continues until ether the player or the monsters hp reaches 0. Potions heal the player on pickup. 
 
-### Build and run
-```bash
-dotnet build
-dotnet run --project ProjectName.App
-```
+--## How to win / lose ##-- 
+Win - Reach the maze exit before health reaches 0 
+lose - Player's health reaches zero during a battle 
 
-## Notes
-- Commit early and commit often.
-- Your repository history is part of your submission.
-- Update this README with build/run instructions specific to your project.
+--## UML Diagram --## 
+The UML diagram is included as AdventureGameUML.png and includes all classes, interfaces, relationships, cardinality, and inheritance used in the project. 
+
+--## Git Usage ##-- 
+git clone
+git pull
+git add .
+git commit -m
+git push

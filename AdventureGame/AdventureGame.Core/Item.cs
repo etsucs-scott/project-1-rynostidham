@@ -1,5 +1,5 @@
 ﻿namespace AdventureGame.Core
-{
+{//Absract class used for potions and weapons shows name and gives a pickup message
     public abstract class Item
     {
         public string Name { get; }

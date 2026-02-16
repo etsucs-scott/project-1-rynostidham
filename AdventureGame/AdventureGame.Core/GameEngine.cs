@@ -1,7 +1,7 @@
 ﻿using System.Text;
 
 namespace AdventureGame.Core
-{
+{ //Bulky class that implements all maze rules as well as creates win and lose variables 
     public class GameEngine
     {
         public Maze Maze { get; }
@@ -32,7 +32,7 @@ namespace AdventureGame.Core
                 case Direction.Left: newX--; break;
                 case Direction.Right: newX++; break;
             }
-
+            //Ensures character can not move outside of maze or into a wall 
             if (!Maze.IsInside(newX, newY))
                 return "Can't move off grid!";
 
